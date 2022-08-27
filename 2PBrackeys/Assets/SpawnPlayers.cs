@@ -13,7 +13,10 @@ public class SpawnPlayers : MonoBehaviour
     void Start()
     {
         Vector2 spawnPos = new Vector2(spawnx, spawny);
-        PhotonNetwork.Instantiate(playerPrefab.name, spawnPos, Quaternion.identity);
+        if (MovementController.playerInstance == null)
+        {
+            PhotonNetwork.Instantiate(playerPrefab.name, spawnPos, Quaternion.identity);
+        }
     }
 
 
