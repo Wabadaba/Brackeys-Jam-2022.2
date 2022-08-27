@@ -61,7 +61,6 @@ public class MovementController : MonoBehaviour
 
     void Awake()
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
         pview = GetComponent<PhotonView>();
         if (pview.IsMine)
         {
@@ -219,6 +218,6 @@ public class MovementController : MonoBehaviour
 
     public void CompleteLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        PhotonNetwork.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
