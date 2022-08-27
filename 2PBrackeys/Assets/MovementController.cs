@@ -6,6 +6,7 @@ using Photon;
 
 public class MovementController : MonoBehaviour
 {
+    public static GameObject playerInstance;
 
     [HideInInspector]
     public float vertInput;
@@ -64,12 +65,16 @@ public class MovementController : MonoBehaviour
         pview = GetComponent<PhotonView>();
         if (pview.IsMine)
         {
+            playerInstance = this.gameObject;
+
             rb = GetComponent<Rigidbody2D>();
             pCollider = GetComponent<BoxCollider2D>();
 
             toJump = false;
             pGravity = rb.gravityScale;
         }
+
+        DontDestroyOnLoad(this.gameObject);
 
         //attaches components to variables
 
