@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Photon.Pun;
+using Photon;
 
 public class MovementController : MonoBehaviour
 {
@@ -218,6 +218,10 @@ public class MovementController : MonoBehaviour
 
     public void CompleteLevel()
     {
-        PhotonNetwork.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.automaticallySyncScene = true;
+            PhotonNetwork.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 }
