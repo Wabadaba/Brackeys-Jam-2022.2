@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BlockState : MonoBehaviour
 {
+    const int DOORINT = 7;
+    const int GATEINT = 9;
     SwitchManager switches;
 
     public Sprite doorSprite;
@@ -18,7 +20,6 @@ public class BlockState : MonoBehaviour
     bool yellowOn;
     bool magentaOn;
 
-    // Start is called before the first frame update
     void Start()
     {
         switches = FindObjectOfType<SwitchManager>();
@@ -32,7 +33,6 @@ public class BlockState : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         UpdateColors();
@@ -42,12 +42,14 @@ public class BlockState : MonoBehaviour
             if (solid)
             {
                 GetComponent<SpriteRenderer>().sprite = gateSprite;
+                gameObject.layer = GATEINT;
                 GetComponent<BoxCollider2D>().enabled = false;
             }
             else
             {
                 GetComponent<SpriteRenderer>().sprite = doorSprite;
                 GetComponent<BoxCollider2D>().enabled = true;
+                gameObject.layer = DOORINT;
             }
         } else // lol lmao
         {
@@ -55,11 +57,13 @@ public class BlockState : MonoBehaviour
             {
                 GetComponent<SpriteRenderer>().sprite = doorSprite;
                 GetComponent<BoxCollider2D>().enabled = true;
+                gameObject.layer = DOORINT;
             }
             else
             {
                 GetComponent<SpriteRenderer>().sprite = gateSprite;
                 GetComponent<BoxCollider2D>().enabled = false;
+                gameObject.layer = GATEINT;
             }
         }
     }
