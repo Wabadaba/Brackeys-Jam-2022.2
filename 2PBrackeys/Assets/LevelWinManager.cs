@@ -19,7 +19,7 @@ public class LevelWinManager : MonoBehaviour
             colCount += 1;
             if(colCount >= 2)
             {
-                CompleteLevel();
+                FindObjectOfType<MovementController>().CompleteLevel();
             }
         }
     }
@@ -32,8 +32,5 @@ public class LevelWinManager : MonoBehaviour
         }
     }
 
-    private void CompleteLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+
 }
