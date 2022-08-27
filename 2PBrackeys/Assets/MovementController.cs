@@ -61,6 +61,7 @@ public class MovementController : MonoBehaviour
 
     void Awake()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
         pview = GetComponent<PhotonView>();
         if (pview.IsMine)
         {
