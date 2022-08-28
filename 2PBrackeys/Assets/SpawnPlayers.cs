@@ -16,6 +16,9 @@ public class SpawnPlayers : MonoBehaviour
         if (MovementController.playerInstance == null)
         {
             PhotonNetwork.Instantiate(playerPrefab.name, spawnPos, Quaternion.identity);
+        } else
+        {
+            FindObjectOfType<MovementController>().TeleportPlayer(spawnPos);
         }
     }
 
