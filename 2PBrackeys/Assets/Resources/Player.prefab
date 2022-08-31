@@ -114,7 +114,7 @@ MonoBehaviour:
   jumpLength: 0.1
   secondJumpHeight: 0.65
   jumpTimer: 0
-  jumpForce: 25
+  jumpForce: 24
   speed: 200
   drag: 0.75
   isGrounded: 0

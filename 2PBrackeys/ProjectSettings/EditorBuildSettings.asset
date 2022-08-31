@@ -33,7 +33,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 7 - The Snake.unity
     guid: c9b86331f25cc124ca1d18082c5179a8
   - enabled: 1
-    path: Assets/Scenes/WIPLvl8.unity
+    path: Assets/Scenes/Level 8 - On & On.unity
     guid: 9849d8c11d541724887322a73d1b61d9
   - enabled: 1
     path: Assets/Scenes/WIPLvl9.unity
@@ -51,8 +51,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 13 - Speed Climbing.unity
     guid: d0e2125fb480ba54c82b99a275ff7a6e
   - enabled: 1
-    path: Assets/Scenes/WIPLvl14.unity
-    guid: f10a39a7293b9e94d908b004da8ca755
+    path: Assets/Scenes/Level 14 - Patience.unity
+    guid: 89b5dd0aec6e3b6448f9bcb4522899e2
   - enabled: 1
     path: Assets/Scenes/Level 15 - The Sacrifice.unity
     guid: b300fe83e33b9fd43acb5c7162c3b273
