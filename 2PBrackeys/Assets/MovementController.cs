@@ -223,13 +223,15 @@ public class MovementController : MonoBehaviour
 
     public void CompleteLevel()
     {
-        pview.RPC("PhotonCompleteLevel", RpcTarget.All);
+        if(pview.IsMine)
+            pview.RPC("PhotonCompleteLevel", RpcTarget.All);
     }
 
     [PunRPC]
     private void PhotonCompleteLevel()
     {
-        PhotonNetwork.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        if(pview.IsMine)
+            PhotonNetwork.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void TeleportPlayer(Vector2 pos)
