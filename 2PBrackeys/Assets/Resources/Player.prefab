@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 999
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 2105798869, guid: 08c125445c66e504285f7ef607525d1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,24 +101,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebbd41d3cdcad0a40ba1669c0beccc7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertInput: 0
+  playerOne: 0
   horizInput: 0
+  horizInput2: 0
   frozen: 0
   lastCPPos: {x: 0, y: 0}
   groundLayers:
     serializedVersion: 2
     m_Bits: 128
   toJump: 0
+  toJump2: 0
   jumps: 0
   jumpCount: 2
   jumpLength: 0.1
   secondJumpHeight: 0.65
   jumpTimer: 0
+  jumpTimer2: 0
   jumpForce: 24
   speed: 200
   drag: 0.75
   isGrounded: 0
   jumpUnlocked: 0
+  p1Sprite: {fileID: -1472742847, guid: 08c125445c66e504285f7ef607525d1e, type: 3}
 --- !u!61 &6877049086406972296
 BoxCollider2D:
   m_ObjectHideFlags: 0

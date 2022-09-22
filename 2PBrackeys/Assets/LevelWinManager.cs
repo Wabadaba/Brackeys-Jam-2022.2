@@ -19,7 +19,8 @@ public class LevelWinManager : MonoBehaviour
             colCount += 1;
             if(colCount >= 2)
             {
-                FindObjectOfType<MovementController>().CompleteLevel();
+                FindObjectOfType<AudioManager>().Play("win");
+                FindObjectOfType<LevelLoader>().LoadNextLevel();
             }
         }
     }

@@ -1,21 +1,21 @@
+// this could so easily be one script but im lazy and want to release this
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Photon.Pun;
 
 public class MovementController : MonoBehaviour
 {
-    public static GameObject playerInstance;
+    public bool playerOne;
 
-    [HideInInspector]
-    public float vertInput;
     [HideInInspector]
     public float horizInput;
+    [HideInInspector]
+    public float horizInput2;
 
     private Rigidbody2D rb;
-
-    PhotonView pview;
+    private Rigidbody2D rb2;
 
     // Movement Variables
     const int GROUNDING_RAYS = 2;
@@ -40,14 +40,19 @@ public class MovementController : MonoBehaviour
     [HideInInspector]
     public bool toJump;
     [HideInInspector]
+    public bool toJump2;
+    [HideInInspector]
     public int jumps;
     public int jumpCount;
     private int jumpBuffer;
+    private int jumpBuffer2;
     public float jumpLength;
     [Range(0.0f, 1.0f)]
     public float secondJumpHeight;
     [HideInInspector]
     public float jumpTimer;
+    [HideInInspector]
+    public float jumpTimer2;
     public float jumpForce;
 
     public float speed;
@@ -57,108 +62,129 @@ public class MovementController : MonoBehaviour
     public bool isGrounded;
     private int coyoteTime;
 
+    private AudioManager am;
 
     public bool jumpUnlocked;
 
+    public Sprite p1Sprite;
+
     void Awake()
     {
-        pview = GetComponent<PhotonView>();
-        if (pview.IsMine)
+        am = FindObjectOfType<AudioManager>();
+
+        rb = GetComponent<Rigidbody2D>();
+        pCollider = GetComponent<BoxCollider2D>();
+
+        toJump = false;
+        pGravity = rb.gravityScale;
+
+        if (playerOne)
         {
-            playerInstance = this.gameObject;
-
-            rb = GetComponent<Rigidbody2D>();
-            pCollider = GetComponent<BoxCollider2D>();
-
-            toJump = false;
-            pGravity = rb.gravityScale;
+            GetComponent<SpriteRenderer>().sprite = p1Sprite;
         }
-
-        DontDestroyOnLoad(this.gameObject);
-
-        //attaches components to variables
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (pview.IsMine)
-            GetInput();
+         GetInput();
     }
 
     private void FixedUpdate()
     {
         // ensure that each player only controls their character
-        if (pview.IsMine)
+        
+        //decrement jump buffer
+        if (jumpBuffer > 0) jumpBuffer--;
+        else if (jumpTimer == 0) toJump = false;
+
+        if (coyoteTime > 0) coyoteTime--;//decrement
+        else isGrounded = false;//if coyoteTime == 0 you are not grounded
+
+        //while on ground
+        if (CheckGrounded() != null)
         {
-            //decrement jump buffer
-            if (jumpBuffer > 0) jumpBuffer--;
-            else if (jumpTimer == 0) toJump = false;
-
-            if (coyoteTime > 0) coyoteTime--;//decrement
-            else isGrounded = false;//if coyoteTime == 0 you are not grounded
-
-            //while on ground
-            if (CheckGrounded() != null)
-            {
-                coyoteTime = COYOTE_FRAMES;
-                isGrounded = true;
-                jumps = jumpCount - 1;
-            }
-
-
-
-            if (frozen)
-            {
-                jumpTimer = 0;
-                rb.gravityScale = pGravity;
-            }
-
-            //move the character (if axis is out of DEADZONE)
-            if (Mathf.Abs(horizInput) > DEADZONE)
-            {
-                rb.AddForce(new Vector2(horizInput * speed, rb.velocity.y));
-            }
-            //apply drag
-            if (!frozen) rb.velocity = new Vector2(rb.velocity.x * drag, rb.velocity.y);
-            //if speed is below MIN_SPEED,
-            if (horizInput == 0 && Mathf.Abs(rb.velocity.x) < MIN_SPEED)
-            {
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            }
-
-
-
-            //check to see if you can jump. If so, start Jump.
-            if (toJump)
-            {
-                if (isGrounded)
-                {
-                    StartJump(jumpLength, true);
-                }
-                else if (jumpUnlocked && jumps > 0)
-                {
-                    StartJump(jumpLength * secondJumpHeight, false);
-                }
-            }
-            ApplyJump(); //only does something if jumpTimer > 0
+            coyoteTime = COYOTE_FRAMES;
+            isGrounded = true;
+            jumps = jumpCount - 1;
         }
+
+
+
+        if (frozen)
+        {
+            jumpTimer = 0;
+            rb.gravityScale = pGravity;
+        }
+
+        //move the character (if axis is out of DEADZONE)
+        if (Mathf.Abs(horizInput) > DEADZONE)
+        {
+            rb.AddForce(new Vector2(horizInput * speed, rb.velocity.y));
+        }
+        //apply drag
+        if (!frozen) rb.velocity = new Vector2(rb.velocity.x * drag, rb.velocity.y);
+        //if speed is below MIN_SPEED,
+        if (horizInput == 0 && Mathf.Abs(rb.velocity.x) < MIN_SPEED)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+
+
+
+        //check to see if you can jump. If so, start Jump.
+        if (toJump)
+        {
+            if (isGrounded)
+            {
+                StartJump(jumpLength, true);
+            }
+            else if (jumpUnlocked && jumps > 0)
+            {
+                StartJump(jumpLength * secondJumpHeight, false);
+            }
+        }
+        ApplyJump(); //only does something if jumpTimer > 0
+        
     }
 
     void GetInput()
     {
-        horizInput = Input.GetAxisRaw("Horizontal");
-        vertInput = Input.GetAxisRaw("Vertical");
-        if (Input.GetButtonDown("Jump") && !frozen)
+        horizInput = 0;
+        if (playerOne)
         {
-            toJump = true;
-            jumpBuffer = BUFFER_FRAMES;
+            // put the restart here so it doesn't double restart or something
+            if (Input.GetKey("r"))
+                FindObjectOfType<LevelLoader>().ReloadLevel();
+            if (Input.GetKey("left")) horizInput -= 1;
+            if (Input.GetKey("right")) horizInput += 1;
+
+            if (Input.GetKeyDown("up"))
+            {
+                toJump = true;
+                jumpBuffer = BUFFER_FRAMES;
+            }
+            if (Input.GetKeyUp("up"))
+            {
+                toJump = false;
+                jumpTimer = 0;
+            }
         }
-        if (Input.GetButtonUp("Jump"))
+        else
         {
-            toJump = false;
-            jumpTimer = 0;
+            if (Input.GetKey("a")) horizInput -= 1;
+            if (Input.GetKey("d")) horizInput += 1;
+            if (Input.GetKeyDown("w"))
+            {
+                toJump = true;
+                jumpBuffer = BUFFER_FRAMES;
+            }
+            if (Input.GetKeyUp("w"))
+            {
+                toJump = false;
+                jumpTimer = 0;
+            }
         }
     }
 
@@ -197,6 +223,8 @@ public class MovementController : MonoBehaviour
 
     private void StartJump(float length, bool jump1)
     {
+        if(am)
+            am.Play("jump");
         jumpTimer = length;
         toJump = false;
         //if second jump, play other sound and play particle effect
@@ -207,40 +235,6 @@ public class MovementController : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
-    public void Freeze(bool enableFreeze)
-    {
-        if (enableFreeze)
-        {
-            frozen = true;
-            toJump = false;
-            jumpTimer = 0;
-        }
-        else
-        {
-            frozen = false;
-        }
-    }
 
-    public void CompleteLevel()
-    {
-            pview.RPC("PhotonCompleteLevel", RpcTarget.All);
-    }
-
-    [PunRPC]
-    private void PhotonCompleteLevel()
-    {
-            PhotonNetwork.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-    public void TeleportPlayer(Vector2 pos)
-    {
-            pview.RPC("PhotonTeleport", RpcTarget.All, pos);
-    }
-
-    [PunRPC]
-    public void PhotonTeleport(Vector2 pos)
-    {
-        transform.position = pos;
-    }
 
 }

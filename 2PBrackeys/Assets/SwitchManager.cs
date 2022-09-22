@@ -6,6 +6,7 @@ public class SwitchManager : MonoBehaviour
 {
 
     //dear god i hope no one ever reads the code for this project
+    private KeyTimerManager keytimer;
 
     public bool redOn;
     public bool greenOn;
@@ -26,6 +27,8 @@ public class SwitchManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        keytimer = FindObjectOfType<KeyTimerManager>();
     }
 
     // Update is called once per frame
@@ -36,6 +39,7 @@ public class SwitchManager : MonoBehaviour
             if (redOn)
                 StopCoroutine("redTick");
             redOn = true;
+            keytimer.RedTimerEnable();
             StartCoroutine("redTick");
         }
         else if (type.Equals("green"))
@@ -78,6 +82,7 @@ public class SwitchManager : MonoBehaviour
     IEnumerator redTick()
     {
         yield return new WaitForSeconds(5f);
+        keytimer.RedTimerDisable();
         redOn = false;
     }
 

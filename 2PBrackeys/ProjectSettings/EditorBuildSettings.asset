@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Loading.unity
-    guid: 29352c22a8a149144b83677fc3520d83
+    path: Assets/Scenes/MainMenu.unity
+    guid: 7dd5bfa5455e807419784c7f558b4e4f
   - enabled: 1
-    path: Assets/Scenes/Lobby.unity
-    guid: 30e9c51bbc991d04d8592deef3ab8679
+    path: Assets/Scenes/Instructions.unity
+    guid: 66d95f877d47db54b96bdd4932d5ce65
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
@@ -36,20 +36,20 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 8 - On & On.unity
     guid: 9849d8c11d541724887322a73d1b61d9
   - enabled: 1
-    path: Assets/Scenes/WIPLvl9.unity
-    guid: 0c243483913baad4c84f3689d6f0c479
+    path: Assets/Scenes/Level 9 - Thread the Needle.unity
+    guid: 808aebf19794a3345800638e246825f9
   - enabled: 1
-    path: Assets/Scenes/Level 10 - Squares.unity
-    guid: 0434f074a5fd5df488e0048bd7ab1b1d
+    path: Assets/Scenes/Level 10 - Speed Climbing.unity
+    guid: d0e2125fb480ba54c82b99a275ff7a6e
   - enabled: 1
     path: Assets/Scenes/Level 11 - The Carry.unity
     guid: ae9a2388b7e506444be72f6fc46aa141
   - enabled: 1
-    path: Assets/Scenes/Level 12 - Thread the Needle.unity
-    guid: 808aebf19794a3345800638e246825f9
+    path: Assets/Scenes/Level 12 - Synchronized.unity
+    guid: 0c243483913baad4c84f3689d6f0c479
   - enabled: 1
-    path: Assets/Scenes/Level 13 - Speed Climbing.unity
-    guid: d0e2125fb480ba54c82b99a275ff7a6e
+    path: Assets/Scenes/Level 13 - Squares.unity
+    guid: 0434f074a5fd5df488e0048bd7ab1b1d
   - enabled: 1
     path: Assets/Scenes/Level 14 - Patience.unity
     guid: 89b5dd0aec6e3b6448f9bcb4522899e2
