@@ -46,30 +46,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: MainSoundtrack
+    group: {fileID: 24300002, guid: 05e45e0d2937ad04f89ae5b468d92883, type: 2}
     clip: {fileID: 8300000, guid: 008ae73be37753a4295cb4ba6fcd38ed, type: 3}
     volume: 0.307
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: jump
+    group: {fileID: 24300002, guid: 05e45e0d2937ad04f89ae5b468d92883, type: 2}
     clip: {fileID: 8300000, guid: 8728da808dd07544b82de737622ee002, type: 3}
     volume: 0.6
     pitch: 1.82
     loop: 0
     source: {fileID: 0}
   - name: click
+    group: {fileID: 24300002, guid: 05e45e0d2937ad04f89ae5b468d92883, type: 2}
     clip: {fileID: 8300000, guid: 7cbb941c7faa9a546977dcbf663d3c0b, type: 3}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: win
+    group: {fileID: 24300002, guid: 05e45e0d2937ad04f89ae5b468d92883, type: 2}
     clip: {fileID: 8300000, guid: b777d9467ee26bc4fa3568d3e5f23db0, type: 3}
     volume: 0.473
     pitch: 2.37
     loop: 0
     source: {fileID: 0}
   - name: WinSong
+    group: {fileID: 24300002, guid: 05e45e0d2937ad04f89ae5b468d92883, type: 2}
     clip: {fileID: 8300000, guid: 37a3d7e4f1f4b8f46858153769460950, type: 3}
     volume: 0.3
     pitch: 1

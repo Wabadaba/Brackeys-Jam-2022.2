@@ -47,6 +47,7 @@ public class SwitchManager : MonoBehaviour
             if (greenOn)
                 StopCoroutine("greenTick");
             greenOn = true;
+            keytimer.GreenTimerEnable();
             StartCoroutine("greenTick");
         }
         else if (type.Equals("blue"))
@@ -54,6 +55,7 @@ public class SwitchManager : MonoBehaviour
             if (blueOn)
                 StopCoroutine("blueTick");
             blueOn = true;
+            keytimer.BlueTimerEnable();
             StartCoroutine("blueTick");
         }
         else if (type.Equals("cyan"))
@@ -61,6 +63,7 @@ public class SwitchManager : MonoBehaviour
             if (cyanOn)
                 StopCoroutine("cyanTick");
             cyanOn = true;
+            keytimer.CyanTimerEnable();
             StartCoroutine("cyanTick");
         }
         else if (type.Equals("yellow"))
@@ -68,6 +71,7 @@ public class SwitchManager : MonoBehaviour
             if (yellowOn)
                 StopCoroutine("yellowTick");
             yellowOn = true;
+            keytimer.YellowTimerEnable();
             StartCoroutine("yellowTick");
         }
         else if (type.Equals("magenta"))
@@ -75,6 +79,7 @@ public class SwitchManager : MonoBehaviour
             if (magentaOn)
                 StopCoroutine("magentaTick");
             magentaOn = true;
+            keytimer.MagentaTimerEnable();
             StartCoroutine("magentaTick");
         }
     }
@@ -89,30 +94,35 @@ public class SwitchManager : MonoBehaviour
     IEnumerator greenTick()
     {
         yield return new WaitForSeconds(5f);
+        keytimer.GreenTimerDisable();
         greenOn = false;
     }
 
     IEnumerator blueTick()
     {
         yield return new WaitForSeconds(5f);
+        keytimer.BlueTimerDisable();
         blueOn = false;
     }
 
     IEnumerator cyanTick()
     {
         yield return new WaitForSeconds(5f);
+        keytimer.CyanTimerDisable();
         cyanOn = false;
     }
 
     IEnumerator yellowTick()
     {
         yield return new WaitForSeconds(5f);
+        keytimer.YellowTimerDisable();
         yellowOn = false;
     }
 
     IEnumerator magentaTick()
     {
         yield return new WaitForSeconds(5f);
+        keytimer.MagentaTimerDisable();
         magentaOn = false;
     }
 }
